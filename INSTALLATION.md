@@ -179,3 +179,16 @@ Pour refaire la clé (après révocation, par exemple), sans rien installer :
 
 Couper l'accès : myaccount.google.com › Sécurité › Applications tierces › retirer « clasp ».
 Revenir en arrière : GitHub › Actions › « Serveur Apps Script » › Run workflow avec le numéro d'une ancienne version.
+
+## État de caladrii.com (installé le 07/11/2026)
+
+| Élément | Valeur |
+|---|---|
+| Domaine | caladrii.com (OVH, commande 263510325, 1 an) — DNS chez OVH : A @ et A www → 145.79.4.131 (Hostinger) |
+| Hébergement | Hostinger, site PHP/HTML, déploiement Git auto `main` → `public_html` |
+| Feuille | « Caladrii – Base (privée) » (compte jb@niedercorn.com) |
+| Script | « Caladrii – serveur », ID 1b3zS01WJBaFGd4wljJswMh7lXye2UOmaNrTmBOVn-SP2A5ZjuVw4lAIE |
+| Déploiement /exec | AKfycbxhprvNoTWxpwUmsNZmQKihygKpGbHSNf4iMWxf_HI0ZERDjNdUDq2a3e8wh-Jj1qI3zQ |
+| Publication auto | secret `CLASPRC_JSON` (clé clasp du 07/11/2026, compte jb@niedercorn.com) — testée (version 2026-11-07a) |
+| Contact | contact@caladrii.com → jb.niedercorn@gmail.com (redirection OVH MX Plan, sans copie) ; filtre Gmail libellé « Caladrii », jamais en spam |
+| Reste à faire | `GITHUB_TOKEN` dans les Propriétés du script (pour publier des articles depuis l'admin) |
