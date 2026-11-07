@@ -61,8 +61,8 @@ jobs:
     # Sans les variables du dépôt, le job est simplement ignoré (pas d'échec).
     runs-on: ubuntu-latest
     env:
-      SCRIPT_ID: A_RENSEIGNER
-      DEPLOYMENT_ID: A_RENSEIGNER
+      SCRIPT_ID: 1b3zS01WJBaFGd4wljJswMh7lXye2UOmaNrTmBOVn-SP2A5ZjuVw4lAIE
+      DEPLOYMENT_ID: AKfycbxhprvNoTWxpwUmsNZmQKihygKpGbHSNf4iMWxf_HI0ZERDjNdUDq2a3e8wh-Jj1qI3zQ
     steps:
       - name: Vérifier la configuration
         id: config
