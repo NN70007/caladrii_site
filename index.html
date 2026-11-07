@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Vox Caladrii — reconnaissance vocale médicale</title>
 <meta name="description" content="Vox Caladrii — reconnaissance vocale médicale pour la radiologie. Bientôt disponible.">
-<meta name="theme-color" content="#06111f">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vox Caladrii">
 <meta property="og:title" content="Vox Caladrii">
@@ -22,60 +22,13 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <style>
-  :root { --navy: #0C447C; --bleu: #378ADD; --ciel: #85B7EB; --fond: #06111f; --texte: #e8eef6; --doux: #8fa3bb; }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; }
-  body {
-    min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column;
-    background:
-      radial-gradient(1100px 700px at 50% 36%, rgba(12,68,124,.6), transparent 70%),
-      radial-gradient(600px 420px at 12% 92%, rgba(55,138,221,.16), transparent 70%),
-      var(--fond);
-    color: var(--texte);
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
-    overflow-x: hidden;
-  }
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none;
-    background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 20%, transparent 70%);
-  }
-  main { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 34px; padding: 48px 0; }
-  .embleme { position: relative; width: min(220px, 52vw); aspect-ratio: 1; display: grid; place-items: center; }
-  .embleme img { position: relative; width: 100%; height: auto; border-radius: 50%; box-shadow: 0 0 0 1px rgba(133,183,235,.25), 0 24px 70px rgba(55,138,221,.35); }
-  .embleme .anneau { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(133,183,235,.45); animation: onde 3.6s cubic-bezier(.2,.6,.3,1) infinite; }
-  .embleme .anneau:nth-child(2) { animation-delay: 1.2s; }
-  .embleme .anneau:nth-child(3) { animation-delay: 2.4s; }
-  @keyframes onde { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.75); opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .embleme .anneau { animation: none; opacity: 0; } }
-  .nom { width: min(560px, 86vw); height: auto; margin: 0; }
+  html, body { margin: 0; height: 100%; background: #ffffff; }
+  body { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; }
   h1 { margin: 0; line-height: 0; }
-  .slogan { margin: -8px 0 0; font-size: clamp(19px, 3vw, 28px); font-weight: 600; letter-spacing: -.01em; color: var(--texte); }
-  .slogan b { color: var(--ciel); font-weight: 600; }
-  .slogan .sep { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ciel); margin: 0 .55em .2em; opacity: .8; }
-  .bientot { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--ciel); }
-  .bientot::before, .bientot::after { content: ""; width: 36px; height: 1px; background: linear-gradient(90deg, transparent, var(--ciel)); }
-  .bientot::after { transform: scaleX(-1); }
-  .contact { margin: 0; }
-  .contact a { display: inline-block; color: var(--texte); text-decoration: none; font-size: 17px; padding: 12px 22px; border: 1px solid rgba(133,183,235,.35); border-radius: 999px; background: rgba(12,68,124,.25); backdrop-filter: blur(6px); transition: border-color .2s, background .2s; }
-  .contact a:hover, .contact a:focus-visible { border-color: var(--ciel); background: rgba(12,68,124,.5); outline: none; }
-  footer { position: relative; text-align: center; font-size: 12px; letter-spacing: .06em; color: var(--doux); padding: 20px 0 24px; }
+  .logo { width: min(760px, 90vw); height: auto; }
 </style>
 </head>
 <body>
-<main>
-  <div class="embleme" aria-hidden="true">
-    <span class="anneau"></span><span class="anneau"></span><span class="anneau"></span>
-    <img src="assets/vox-caladrii-icon.svg" alt="" width="220" height="220">
-  </div>
-  <h1><img class="nom" src="assets/vox-caladrii-wordmark-fond-sombre.svg" alt="Vox Caladrii" width="560" height="86"></h1>
-  <p class="slogan">Reconnaissance vocale<span class="sep" aria-hidden="true"></span><b>médicale</b></p>
-  <span class="bientot">Bientôt disponible</span>
-  <p class="contact"><a href="mailto:contact@caladrii.com">contact@caladrii.com</a></p>
-</main>
-<footer>© 2026 Vox Caladrii</footer>
+<h1><img class="logo" src="assets/vox-caladrii-logo.svg" alt="Vox Caladrii" width="760" height="220"></h1>
 </body>
 </html>
