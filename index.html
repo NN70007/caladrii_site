@@ -3,34 +3,189 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Vox Caladrii</title>
-<meta name="description" content="Vox Caladrii">
-<meta name="theme-color" content="#ffffff">
+<title>Vox Caladrii — reconnaissance vocale pour la radiologie</title>
+<meta name="description" content="Vox Caladrii — modèle de reconnaissance vocale spécialisé dans la dictée de comptes rendus de radiologie en français. Bientôt disponible.">
+<meta name="theme-color" content="#0C447C">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vox Caladrii">
-<meta property="og:title" content="Vox Caladrii">
-<meta property="og:description" content="Vox Caladrii">
+<meta property="og:title" content="Vox Caladrii — Chaque spécialité a ses mots">
+<meta property="og:description" content="Modèle de reconnaissance vocale spécialisé dans la dictée de comptes rendus de radiologie en français. Bientôt disponible.">
 <meta property="og:url" content="https://caladrii.com/">
 <meta property="og:image" content="https://caladrii.com/assets/og-image.png?v=20261107b">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Vox Caladrii">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="assets/vox-caladrii-icon.svg?v=20261107b">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=20261107b">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=20261107b">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261107b">
-<link rel="manifest" href="site.webmanifest?v=20261107b">
+<link rel="icon" type="image/svg+xml" href="assets/vox-caladrii-icon.svg?v=20261108">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=20261108">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=20261108">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261108">
+<link rel="manifest" href="site.webmanifest?v=20261108">
+<link rel="preload" href="assets/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  html, body { margin: 0; height: 100%; background: #ffffff; }
-  body { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; }
-  h1 { margin: 0; line-height: 0; }
-  .logo { width: min(760px, 90vw); height: auto; }
-  footer { position: fixed; left: 0; right: 0; bottom: 0; padding: 14px 0 calc(14px + env(safe-area-inset-bottom)); text-align: center; font: 12px/1.4 Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; letter-spacing: .04em; color: #9aa7b4; }
+  @font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/inter-latin-400-normal.woff2) format('woff2')}
+  @font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/inter-latin-500-normal.woff2) format('woff2')}
+  @font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/inter-latin-600-normal.woff2) format('woff2')}
+  :root{
+    --navy:#0C447C; --blue:#378ADD; --light:#5FA4E8; --paper:#F7FAFD;
+    --ink:#0B2340; --muted:#5B6B80;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+
+  /* Gauche */
+  .left{display:flex;flex-direction:column;justify-content:space-between;padding:48px 64px;background:var(--paper)}
+  .lang{align-self:flex-start;display:flex;gap:4px;font-size:13px;font-weight:500}
+  .lang button{border:1px solid #D6E2EF;background:#fff;color:var(--muted);padding:5px 10px;border-radius:999px;cursor:pointer;font:inherit}
+  .lang button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+  .brand{display:flex;flex-direction:column;gap:40px;max-width:520px}
+  .brand img{width:min(100%,460px);height:auto}
+  .brand p{font-size:18px;line-height:1.6;color:var(--muted);max-width:440px}
+  .by{font-size:14px;color:var(--muted);letter-spacing:.02em}
+  .by strong{color:var(--navy);font-weight:600}
+
+  /* Droite */
+  .right{background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:64px;position:relative;overflow:hidden}
+  .right::before{content:"";position:absolute;inset:auto -10% -30% auto;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(95,164,232,.18),transparent 65%);pointer-events:none}
+  h1{font-size:clamp(36px,4.2vw,56px);line-height:1.08;font-weight:600;letter-spacing:-.02em;max-width:12ch}
+  h1 em{font-style:normal;color:var(--light)}
+  .lead{font-size:18px;line-height:1.6;color:#D9E7F7;max-width:46ch}
+  .terms{display:flex;flex-wrap:wrap;gap:10px;list-style:none}
+  .terms li{font-size:14px;padding:7px 14px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#E6F0FB}
+
+  /* Démonstration */
+  .demo{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:22px 24px;max-width:520px}
+  .demo-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9EC3EC;margin-bottom:14px}
+  .wave{display:flex;align-items:center;gap:5px;height:44px}
+  .wave span{width:5px;border-radius:3px;background:var(--blue)}
+  .wave span:nth-child(even){background:var(--light)}
+  .typed{font-size:17px;line-height:1.55;min-height:3.1em;color:#fff}
+  .caret{display:inline-block;width:2px;height:1.1em;background:var(--light);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .demo.typing .wave{display:none}
+  .demo:not(.typing) .typed{display:none}
+
+  .bottom{display:flex;flex-direction:column;gap:10px}
+  .privacy{font-size:15px;color:#D9E7F7}
+  .soon{font-size:22px;font-weight:600;color:#fff;padding-top:16px;margin-top:8px;border-top:2px solid var(--light);display:inline-block;align-self:flex-start}
+
+  /* Légende */
+  .legend{background:#fff;border-top:1px solid #E3ECF6;padding:44px 24px;text-align:center}
+  .legend p{max-width:640px;margin:0 auto;font-size:15px;line-height:1.7;color:var(--muted)}
+  .legend img{width:44px;height:44px;margin-bottom:16px}
+  footer{background:#fff;text-align:center;font-size:12px;color:#8A98AA;padding:0 24px 32px}
+  footer a{color:inherit}
+
+  [data-en]{display:none}
+  html[lang="en"] [data-fr]{display:none}
+  html[lang="en"] [data-en]{display:revert}
+
+  @media (max-width:860px){
+    .page{grid-template-columns:1fr}
+    .left{padding:24px 16px 40px;gap:32px}
+    .brand{gap:24px}
+    .right{padding:48px 16px;gap:28px}
+    .lead,.brand p{font-size:16px}
+  }
+  @media (prefers-reduced-motion:reduce){ .caret{animation:none} }
 </style>
 </head>
 <body>
-<h1><img class="logo" src="assets/vox-caladrii-logo.svg?v=20261107b" alt="Vox Caladrii" width="760" height="220"></h1>
-<footer>© 2026 NiderLabs</footer>
+<div class="page">
+  <section class="left">
+    <div class="lang" role="group" aria-label="Langue">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="brand">
+      <img src="assets/vox-caladrii-logo.svg?v=20261108" width="760" height="220" alt="Vox Caladrii">
+      <p data-fr>Un modèle de reconnaissance vocale spécialisé dans la dictée de comptes rendus de radiologie en français.</p>
+      <p data-en>A French-language speech recognition model dedicated to radiology reporting.</p>
+    </div>
+    <div class="by"><span data-fr>Une création</span><span data-en>By</span> <strong>NiderLabs</strong></div>
+  </section>
+
+  <section class="right">
+    <h1 data-fr>Chaque spécialité a ses&nbsp;<em>mots</em>.</h1>
+    <h1 data-en>Every specialty has its <em>language</em>.</h1>
+
+    <p class="lead" data-fr>Une reconnaissance vocale spécialisée dans la terminologie anatomique, la sémiologie de l'imagerie et les classifications radiologiques usuelles.</p>
+    <p class="lead" data-en>Speech recognition specialised in anatomical terminology, imaging semiology and common radiological classifications.</p>
+
+    <div class="demo" id="demo" aria-live="off">
+      <div class="demo-label"><span data-fr>Exemple illustratif — texte fictif</span><span data-en>Illustrative example — fictitious text</span></div>
+      <div class="wave" aria-hidden="true"></div>
+      <div class="typed"><span id="typed"></span><span class="caret"></span></div>
+    </div>
+
+    <div class="bottom">
+      <p class="privacy" data-fr>Vos dictées ne quittent jamais votre ordinateur.</p>
+      <p class="privacy" data-en>Your dictation never leaves your computer.</p>
+      <p class="soon" data-fr>Bientôt disponible</p>
+      <p class="soon" data-en>Coming soon</p>
+    </div>
+  </section>
+</div>
+
+<section class="legend">
+  <img src="assets/vox-caladrii-icon.svg?v=20261108" alt="" aria-hidden="true">
+  <p data-fr>Dans les bestiaires médiévaux, le caladre était un oiseau blanc que l'on amenait au chevet des malades. Vox Caladrii — la voix du caladre — reprend cette image&nbsp;: une présence attentive, au service du radiologue.</p>
+  <p data-en>In medieval bestiaries, the caladrius was a white bird brought to the bedside of the sick. Vox Caladrii — the voice of the caladrius — takes up that image: an attentive presence, at the radiologist's service.</p>
+</section>
+<footer>© 2026 NiderLabs · <a href="mailto:contact@niderlabs.com">contact@niderlabs.com</a></footer>
+
+<script>
+(function(){
+  var html=document.documentElement;
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click',function(){
+      html.lang=b.dataset.lang;
+      document.querySelectorAll('.lang button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+      restart();
+    });
+  });
+
+  var texts={
+    fr:"Foie de morphologie habituelle. Absence de dilatation des voies biliaires.",
+    en:"Liver of normal morphology. No biliary dilatation."
+  };
+  var demo=document.getElementById('demo'), wave=demo.querySelector('.wave'), out=document.getElementById('typed');
+  var heights=[10,22,34,18,40,26,14,30,44,20,12,28,36,16,24,38,18,10,26,32];
+  heights.forEach(function(h){var s=document.createElement('span');s.style.height=h+'px';wave.appendChild(s)});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer=null, frame=null;
+
+  function animateWave(){
+    var t=0;
+    frame=setInterval(function(){
+      t++;
+      wave.querySelectorAll('span').forEach(function(s,i){
+        var base=heights[i]; s.style.height=Math.max(6,base*(0.55+0.45*Math.abs(Math.sin((t+i*2)/4))))+'px';
+      });
+    },80);
+  }
+  function run(){
+    var txt=texts[html.lang]||texts.fr;
+    if(reduce){demo.classList.add('typing');out.textContent=txt;return}
+    demo.classList.remove('typing'); out.textContent='';
+    animateWave();
+    timer=setTimeout(function(){
+      clearInterval(frame); demo.classList.add('typing');
+      var i=0;
+      (function type(){
+        out.textContent=txt.slice(0,++i);
+        if(i<txt.length){timer=setTimeout(type,38)}
+        else{timer=setTimeout(run,4500)}
+      })();
+    },2200);
+  }
+  function stop(){clearTimeout(timer);clearInterval(frame)}
+  function restart(){stop();run()}
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():restart()});
+  if(location.hash==='#final'){demo.classList.add('typing');out.textContent=texts.fr}else{run()}
+})();
+</script>
 </body>
 </html>
