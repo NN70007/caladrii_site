@@ -85,7 +85,7 @@
   .contact a{display:inline-block;font-size:15px;color:#fff;text-decoration:none;padding:10px 18px;border:1px solid rgba(255,255,255,.3);border-radius:999px}
   .contact a:hover,.contact a:focus-visible{border-color:#fff;outline:none}
   .band{background:#fff;border-top:1px solid #E3ECF6;padding:48px 24px}
-  .band h2{max-width:960px;margin:0 auto 22px;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+  .band h2{max-width:960px;margin:0 auto 22px;font-size:22px;font-weight:600;letter-spacing:-.01em;color:var(--navy)}
   .chain{max-width:960px;margin:0 auto;display:flex;align-items:stretch;gap:10px}
   .step{flex:1;border:1.5px solid #D6E2EF;border-radius:14px;padding:16px 12px;text-align:center;background:#fff}
   .step .ic{height:38px;display:flex;align-items:center;justify-content:center}
@@ -101,6 +101,28 @@
   .models h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:8px}
   .models p{font-size:14.5px;line-height:1.6;color:var(--muted)}
   .privacy-band{background:var(--paper)}
+  /* Where the voice goes: two routes */
+  .where{max-width:960px;margin:0 auto}
+  .where h2{font-size:clamp(24px,2.6vw,32px);font-weight:600;letter-spacing:-.015em;color:var(--navy);margin-bottom:10px}
+  .where .intro{font-size:16.5px;line-height:1.65;color:var(--ink);max-width:68ch;margin-bottom:28px}
+  .routes{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .route{border-radius:16px;padding:22px 24px 24px}
+  .route.ok{background:var(--navy);color:#fff}
+  .route.away{background:#fff;border:1.5px solid #D6E2EF}
+  .route h3{font-size:17px;font-weight:600;margin-bottom:16px}
+  .route{display:flex;flex-direction:column}
+  .route.away h3{color:var(--ink)}
+  .route p{font-size:14.5px;line-height:1.6}
+  .route.ok p{color:#D9E7F7}
+  .route.away p{color:var(--muted)}
+  .path{display:flex;align-items:center;gap:0;margin-bottom:18px;height:64px}
+  .node{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;min-width:72px;text-align:center}
+  .route.ok .node{color:#BFD8F2}
+  .route.away .node{color:var(--muted)}
+  .link{flex:1;height:2px;margin:0 6px 18px}
+  .route.ok .link{background:#85B7EB}
+  .route.away .link{background:repeating-linear-gradient(90deg,#9AAABB 0 6px,transparent 6px 11px)}
+  .where .advice{margin-top:22px;font-size:15px;font-weight:500;color:var(--navy)}
   .privacy-box{max-width:960px;margin:0 auto;border-left:4px solid var(--blue);padding:4px 0 4px 22px}
   .privacy-box h3{font-size:22px;font-weight:600;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em}
   .privacy-box p{font-size:16px;line-height:1.65;color:var(--ink);max-width:70ch}
@@ -111,6 +133,8 @@
     .chain{flex-direction:column}
     .arrow{transform:rotate(90deg)}
     .models{grid-template-columns:1fr}
+    .routes{grid-template-columns:1fr}
+    .node{min-width:56px;font-size:11px}
   }
 
   @media (max-width:860px){
@@ -151,7 +175,7 @@
     </div>
     <div class="bottom">
       <p class="privacy" data-fr>Vox Caladrii fonctionne entièrement sur votre ordinateur.</p><p class="privacy" data-en>Vox Caladrii runs entirely on your computer.</p><p class="privacy" data-es>Vox Caladrii funciona íntegramente en su ordenador.</p><p class="privacy" data-de>Vox Caladrii läuft vollständig auf Ihrem Computer.</p>
-      <p class="privacy" data-fr>Vox Caladrii FR est disponible aujourd'hui ; les modèles DE et EN sont en cours de développement.</p><p class="privacy" data-en>Vox Caladrii FR is available today; the DE and EN models are in development.</p><p class="privacy" data-es>Vox Caladrii FR ya está disponible; los modelos DE y EN están en desarrollo.</p><p class="privacy" data-de>Vox Caladrii FR ist heute verfügbar; die Modelle DE und EN befinden sich in Entwicklung.</p>
+      <p class="privacy" data-fr>Vox Caladrii FR est disponible aujourd'hui&nbsp;; les modèles DE et EN sont en cours de développement.</p><p class="privacy" data-en>Vox Caladrii FR is available today; the DE and EN models are in development.</p><p class="privacy" data-es>Vox Caladrii FR ya está disponible; los modelos DE y EN están en desarrollo.</p><p class="privacy" data-de>Vox Caladrii FR ist heute verfügbar; die Modelle DE und EN befinden sich in Entwicklung.</p>
       <p class="soon" data-fr>Bientôt disponible</p><p class="soon" data-en>Coming soon</p><p class="soon" data-es>Próximamente</p><p class="soon" data-de>Demnächst verfügbar</p>
     </div>
   </section>
@@ -161,8 +185,8 @@
   <h2><span data-fr>Comment ça fonctionne</span><span data-en>How it works</span><span data-es>Cómo funciona</span><span data-de>So funktioniert es</span></h2>
   <div class="chain">
     <div class="step"><div class="ic"><svg width="26" height="32" viewBox="0 0 24 30" aria-hidden="true"><rect x="7" y="2" width="10" height="16" rx="5" fill="#378ADD"/><path d="M3 14a9 9 0 0 0 18 0M12 23v5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div><b><span data-fr>Votre voix</span><span data-en>Your voice</span><span data-es>Su voz</span><span data-de>Ihre Stimme</span></b><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
-    <div class="step on"><div class="ic"><img src="assets/vox-caladrii-icon.svg" width="34" height="34" alt=""></div><b>Vox Caladrii</b><small><span data-fr>le modèle : reconnaît la terminologie</span><span data-en>the model: recognises the terminology</span><span data-es>el modelo: reconoce la terminología</span><span data-de>das Modell: erkennt die Fachterminologie</span></small><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
-    <div class="step"><div class="ic"><img src="assets/nidervoice-icon.svg" width="34" height="34" alt=""></div><b>NiderVoice</b><small><span data-fr>le logiciel : écrit dans vos documents</span><span data-en>the software: writes into your documents</span><span data-es>el programa: escribe en sus documentos</span><span data-de>die Software: schreibt in Ihre Dokumente</span></small><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
+    <div class="step on"><div class="ic"><img src="assets/vox-caladrii-icon.svg" width="34" height="34" alt=""></div><b>Vox Caladrii</b><small><span data-fr>le modèle&nbsp;: reconnaît la terminologie</span><span data-en>the model: recognises the terminology</span><span data-es>el modelo: reconoce la terminología</span><span data-de>das Modell: erkennt die Fachterminologie</span></small><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
+    <div class="step"><div class="ic"><img src="assets/nidervoice-icon.svg" width="34" height="34" alt=""></div><b>NiderVoice</b><small><span data-fr>le logiciel&nbsp;: écrit dans vos documents</span><span data-en>the software: writes into your documents</span><span data-es>el programa: escribe en sus documentos</span><span data-de>die Software: schreibt in Ihre Dokumente</span></small><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
     <div class="step"><div class="ic"><svg width="24" height="30" viewBox="0 0 24 30" aria-hidden="true"><path d="M3 2h12l6 6v20H3z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 14h10M7 19h10M7 24h6" stroke="#378ADD" stroke-width="2" stroke-linecap="round"/></svg></div><b><span data-fr>Vos documents</span><span data-en>Your documents</span><span data-es>Sus documentos</span><span data-de>Ihre Dokumente</span></b><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div>
   </div>
 </section>
@@ -171,7 +195,7 @@
   <img src="assets/vox-caladrii-icon.svg?v=20261108" alt="" aria-hidden="true">
   <p data-fr>Dans les bestiaires médiévaux, le caladre était un oiseau blanc que l'on amenait au chevet des malades. Vox Caladrii — la voix du caladre — en tient son nom.</p><p data-en>In medieval bestiaries, the caladrius was a white bird brought to the bedside of the sick. Vox Caladrii — the voice of the caladrius — takes its name from it.</p><p data-es>En los bestiarios medievales, el caladrio era un ave blanca que se llevaba junto al lecho de los enfermos. Vox Caladrii —la voz del caladrio— toma de él su nombre.</p><p data-de>In mittelalterlichen Bestiarien war der Caladrius ein weißer Vogel, den man ans Krankenbett brachte. Vox Caladrii — die Stimme des Caladrius — verdankt ihm seinen Namen.</p>
 </section>
-<footer><span data-fr>Outil de dictée. Ne constitue pas une aide au diagnostic.</span><span data-en>Dictation tool. Not a diagnostic aid.</span><span data-es>Herramienta de dictado. No constituye una ayuda al diagnóstico.</span><span data-de>Diktierwerkzeug. Kein Hilfsmittel zur Diagnose.</span><br><span data-fr>Conception : NiderLabs · Distribution, licences et assistance : GOKYO S.à r.l.-S, Luxembourg</span><span data-en>Design: NiderLabs · Distribution, licences and support: GOKYO S.à r.l.-S, Luxembourg</span><span data-es>Diseño: NiderLabs · Distribución, licencias y asistencia: GOKYO S.à r.l.-S, Luxemburgo</span><span data-de>Konzeption: NiderLabs · Vertrieb, Lizenzen und Support: GOKYO S.à r.l.-S, Luxemburg</span><br>© 2026 NiderLabs · <a href="mailto:contact@niderlabs.com">contact@niderlabs.com</a></footer>
+<footer><span data-fr>Outil de dictée. Ne constitue pas une aide au diagnostic.</span><span data-en>Dictation tool. Not a diagnostic aid.</span><span data-es>Herramienta de dictado. No constituye una ayuda al diagnóstico.</span><span data-de>Diktierwerkzeug. Kein Hilfsmittel zur Diagnose.</span><br><span data-fr>Conception&nbsp;: NiderLabs · Distribution, licences et assistance&nbsp;: GOKYO S.à r.l.-S, Luxembourg</span><span data-en>Design: NiderLabs · Distribution, licences and support: GOKYO S.à r.l.-S, Luxembourg</span><span data-es>Diseño: NiderLabs · Distribución, licencias y asistencia: GOKYO S.à r.l.-S, Luxemburgo</span><span data-de>Konzeption: NiderLabs · Vertrieb, Lizenzen und Support: GOKYO S.à r.l.-S, Luxemburg</span><br>© 2026 NiderLabs · <a href="mailto:contact@niderlabs.com">contact@niderlabs.com</a></footer>
 
 <script>
 (function(){
