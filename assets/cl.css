@@ -94,7 +94,7 @@ section.tint{background:var(--wash)}
 .ledger li:first-child{border-top:0}
 .ledger .q{font-family:var(--serif);font-size:24px;color:var(--navy);font-variant-numeric:lining-nums;white-space:nowrap}
 .ledger .zero .q{color:var(--ok)}
-.ledger li span:last-child{font-size:15.5px}
+.ledger li>span:last-child{font-size:15.5px}
 .ledger li em{display:block;font-style:normal;color:var(--muted);font-size:13.5px;margin-top:2px}
 
 /* Tableaux */
