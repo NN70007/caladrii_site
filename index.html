@@ -1,252 +1,187 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en" data-langs="en fr es de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Vox Caladrii — reconnaissance vocale pour la radiologie</title>
-<meta name="description" content="Vox Caladrii — la reconnaissance vocale entraînée pour la radiologie. Bientôt disponible.">
-<meta name="theme-color" content="#0C447C">
+<title>Vox Caladrii — speech recognition trained for radiology</title>
+<meta name="description" content="Vox Caladrii is a speech-recognition model trained for French radiology terminology. Measured, documented, built without patient data, and run entirely on the computer.">
+<meta name="theme-color" content="#FAFCFE">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Vox Caladrii — Chaque spécialité a ses mots">
-<meta property="og:description" content="Vox Caladrii — la reconnaissance vocale entraînée pour la radiologie. Bientôt disponible.">
+<meta property="og:title" content="Vox Caladrii — speech recognition trained for radiology">
+<meta property="og:description" content="Vox Caladrii is a speech-recognition model trained for French radiology terminology. Measured, documented, built without patient data, and run entirely on the computer.">
 <meta property="og:url" content="https://caladrii.com/">
-<meta property="og:image" content="https://caladrii.com/assets/og-image.png?v=20261107b">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="assets/vox-caladrii-icon.svg?v=20261108">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=20261108">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=20261108">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=20261108">
-<link rel="manifest" href="site.webmanifest?v=20261108">
-<link rel="preload" href="assets/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<style>
-  @font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/inter-latin-400-normal.woff2) format('woff2')}
-  @font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/inter-latin-500-normal.woff2) format('woff2')}
-  @font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(assets/fonts/inter-latin-600-normal.woff2) format('woff2')}
-  :root{
-    --navy:#0C447C; --blue:#378ADD; --light:#5FA4E8; --paper:#F7FAFD;
-    --ink:#0B2340; --muted:#5B6B80;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
-  .page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-
-  /* Gauche */
-  .left{display:flex;flex-direction:column;justify-content:space-between;padding:48px 64px;background:var(--paper)}
-  .lang{align-self:flex-start;display:flex;gap:4px;font-size:13px;font-weight:500}
-  .lang button{border:1px solid #D6E2EF;background:#fff;color:var(--muted);padding:5px 10px;border-radius:999px;cursor:pointer;font:inherit}
-  .lang button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
-  .brand{display:flex;flex-direction:column;gap:40px;max-width:520px}
-  .brand img{width:min(100%,460px);height:auto}
-  .brand p{font-size:18px;line-height:1.6;color:var(--muted);max-width:440px}
-  .by{font-size:14px;color:var(--muted);letter-spacing:.02em}
-  .by strong{color:var(--navy);font-weight:600}
-
-  /* Droite */
-  .right{background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:64px;position:relative;overflow:hidden}
-  .right::before{content:"";position:absolute;inset:auto -10% -30% auto;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(95,164,232,.18),transparent 65%);pointer-events:none}
-  h1{font-size:clamp(36px,4.2vw,56px);line-height:1.08;font-weight:600;letter-spacing:-.02em;max-width:18ch;text-wrap:balance}
-  h1 em{font-style:normal;color:var(--light)}
-  .lead{font-size:18px;line-height:1.6;color:#D9E7F7;max-width:46ch}
-  .terms{display:flex;flex-wrap:wrap;gap:10px;list-style:none}
-  .terms li{font-size:14px;padding:7px 14px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#E6F0FB}
-
-  /* Démonstration */
-  .demo{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:22px 24px;max-width:520px}
-  .demo-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9EC3EC;margin-bottom:14px}
-  .wave{display:flex;align-items:center;gap:5px;height:44px}
-  .wave span{width:5px;border-radius:3px;background:var(--blue)}
-  .wave span:nth-child(even){background:var(--light)}
-  .typed{font-size:17px;line-height:1.55;min-height:3.1em;color:#fff}
-  .caret{display:inline-block;width:2px;height:1.1em;background:var(--light);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
-  @keyframes blink{50%{opacity:0}}
-  .demo.typing .wave{display:none}
-  .demo:not(.typing) .typed{display:none}
-
-  .bottom{display:flex;flex-direction:column;gap:10px}
-  .privacy{font-size:15px;color:#D9E7F7}
-  .soon{font-size:22px;font-weight:600;color:#fff;padding-top:16px;margin-top:8px;border-top:2px solid var(--light);display:inline-block;align-self:flex-start}
-
-  /* Légende */
-  .legend{background:#fff;border-top:1px solid #E3ECF6;padding:44px 24px;text-align:center}
-  .legend p{max-width:640px;margin:0 auto;font-size:15px;line-height:1.7;color:var(--muted)}
-  .legend img{width:44px;height:44px;margin-bottom:16px}
-  footer{background:#fff;text-align:center;font-size:12px;color:#8A98AA;padding:0 24px 32px}
-  footer a{color:inherit}
-
-  [data-en],[data-es],[data-de]{display:none}
-  html:not([lang="fr"]) [data-fr]{display:none}
-  html[lang="en"] [data-en],html[lang="es"] [data-es],html[lang="de"] [data-de]{display:revert}
-
-  /* Étiquette, schéma, sections */
-  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#9EC3EC}
-  .contact a{display:inline-block;font-size:15px;color:#fff;text-decoration:none;padding:10px 18px;border:1px solid rgba(255,255,255,.3);border-radius:999px}
-  .contact a:hover,.contact a:focus-visible{border-color:#fff;outline:none}
-  .band{background:#fff;border-top:1px solid #E3ECF6;padding:48px 24px}
-  .band h2{max-width:960px;margin:0 auto 22px;font-size:22px;font-weight:600;letter-spacing:-.01em;color:var(--navy)}
-  .chain{max-width:960px;margin:0 auto;display:flex;align-items:stretch;gap:10px}
-  .step{flex:1;border:1.5px solid #D6E2EF;border-radius:14px;padding:16px 12px;text-align:center;background:#fff}
-  .step .ic{height:38px;display:flex;align-items:center;justify-content:center}
-  .step b{display:block;font-weight:600;font-size:15px;margin-top:6px}
-  .step small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.4}
-  .step.on{background:var(--navy);border-color:var(--navy);color:#fff}
-  .step.on small{color:#BFD8F2}
-  .step .here{display:none;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#85B7EB;margin-top:8px}
-  .step.on .here{display:block}
-  .arrow{align-self:center;color:var(--blue);font-size:20px}
-  .models{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .models div{border:1px solid #E3ECF6;border-radius:14px;padding:18px 20px;background:var(--paper)}
-  .models h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:8px}
-  .models p{font-size:14.5px;line-height:1.6;color:var(--muted)}
-  .privacy-band{background:var(--paper)}
-  /* Where the voice goes: two routes */
-  .where{max-width:960px;margin:0 auto}
-  .where h2{font-size:clamp(24px,2.6vw,32px);font-weight:600;letter-spacing:-.015em;color:var(--navy);margin-bottom:10px}
-  .where .intro{font-size:16.5px;line-height:1.65;color:var(--ink);max-width:68ch;margin-bottom:28px}
-  .routes{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .route{border-radius:16px;padding:22px 24px 24px}
-  .route.ok{background:var(--navy);color:#fff}
-  .route.away{background:#fff;border:1.5px solid #D6E2EF}
-  .route h3{font-size:17px;font-weight:600;margin-bottom:16px}
-  .route{display:flex;flex-direction:column}
-  .route.away h3{color:var(--ink)}
-  .route p{font-size:14.5px;line-height:1.6}
-  .route.ok p{color:#D9E7F7}
-  .route.away p{color:var(--muted)}
-  .path{display:flex;align-items:center;gap:0;margin-bottom:18px;height:64px}
-  .node{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;min-width:72px;text-align:center}
-  .route.ok .node{color:#BFD8F2}
-  .route.away .node{color:var(--muted)}
-  .link{flex:1;height:2px;margin:0 6px 18px}
-  .route.ok .link{background:#85B7EB}
-  .route.away .link{background:repeating-linear-gradient(90deg,#9AAABB 0 6px,transparent 6px 11px)}
-  .where .advice{margin-top:22px;font-size:15px;font-weight:500;color:var(--navy)}
-  .privacy-box{max-width:960px;margin:0 auto;border-left:4px solid var(--blue);padding:4px 0 4px 22px}
-  .privacy-box h3{font-size:22px;font-weight:600;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em}
-  .privacy-box p{font-size:16px;line-height:1.65;color:var(--ink);max-width:70ch}
-  .privacy-box details{margin-top:14px}
-  .privacy-box summary{cursor:pointer;font-weight:600;color:var(--blue);font-size:15px}
-  .privacy-box details p{margin-top:10px;color:var(--muted);font-size:15px}
-  @media (max-width:860px){
-    .chain{flex-direction:column}
-    .arrow{transform:rotate(90deg)}
-    .models{grid-template-columns:1fr}
-    .routes{grid-template-columns:1fr}
-    .node{min-width:56px;font-size:11px}
-  }
-
-  @media (max-width:860px){
-    .page{grid-template-columns:1fr}
-    .left{padding:24px 16px 40px;gap:32px}
-    .brand{gap:24px}
-    .right{padding:48px 16px;gap:28px}
-    .lead,.brand p{font-size:16px}
-  }
-  @media (prefers-reduced-motion:reduce){ .caret{animation:none} }
-</style>
+<meta property="og:image" content="https://caladrii.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/assets/vox-caladrii-icon.svg">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/cl.css?v=20261116a">
 </head>
 <body>
-<div class="page">
-  <section class="left">
-    <div class="lang" role="group" aria-label="Langue / Language">
-      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      <button type="button" data-lang="es" aria-pressed="false">ES</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-    </div>
-    <div class="brand">
-      <img src="assets/vox-caladrii-logo.svg?v=20261108" width="760" height="220" alt="Vox Caladrii">
-      <p data-fr>La reconnaissance vocale entraînée pour la radiologie.</p><p data-en>Speech recognition trained for radiology.</p><p data-es>El reconocimiento de voz entrenado para la radiología.</p><p data-de>Die für die Radiologie trainierte Spracherkennung.</p>
-    </div>
-    <div class="by"><span data-fr>Une création</span><span data-en>By</span><span data-es>Una creación de</span><span data-de>Eine Kreation von</span> <strong>NiderLabs</strong></div>
-  </section>
-
-  <section class="right">
-    <div class="eyebrow" data-fr>Le modèle</div><div class="eyebrow" data-en>The model</div><div class="eyebrow" data-es>El modelo</div><div class="eyebrow" data-de>Das Modell</div>
-    <h1 data-fr>Chaque spécialité a ses&nbsp;<em>mots</em>.</h1><h1 data-en>Every specialty has its <em>language</em>.</h1><h1 data-es>Cada especialidad tiene sus <em>palabras</em>.</h1><h1 data-de>Jedes Fachgebiet hat seine <em>Sprache</em>.</h1>
-    <p class="lead" data-fr>Vox Caladrii FR est un modèle de reconnaissance vocale entraîné pour la terminologie radiologique française. Il fonctionne dans le logiciel NiderVoice.</p><p class="lead" data-en>Vox Caladrii FR is a speech-recognition model trained for French radiology terminology. It runs in the NiderVoice software.</p><p class="lead" data-es>Vox Caladrii FR es un modelo de reconocimiento de voz entrenado para la terminología radiológica francesa. Funciona en el programa NiderVoice.</p><p class="lead" data-de>Vox Caladrii FR ist ein Spracherkennungsmodell, das für die französische radiologische Fachterminologie trainiert ist. Es läuft in der Software NiderVoice.</p>
-    <p class="lead" data-fr>Anatomie, sémiologie, éponymes, classifications&nbsp;: Vox Caladrii connaît le vocabulaire du radiologue et l'écrit correctement.</p><p class="lead" data-en>Anatomy, semiology, eponyms, classifications: Vox Caladrii knows the radiologist's vocabulary and writes it correctly.</p><p class="lead" data-es>Anatomía, semiología, epónimos, clasificaciones: Vox Caladrii conoce el vocabulario del radiólogo y lo escribe correctamente.</p><p class="lead" data-de>Anatomie, Semiologie, Eponyme, Klassifikationen: Vox Caladrii kennt das Vokabular der Radiologie und schreibt es korrekt.</p>
-    <div class="demo" id="demo" aria-live="off">
-      <div class="demo-label"><span data-fr>Exemple illustratif — texte fictif</span><span data-en>Illustrative example — fictitious text</span><span data-es>Ejemplo ilustrativo — texto ficticio</span><span data-de>Anschauungsbeispiel — fiktiver Text</span></div>
-      <div class="wave" aria-hidden="true"></div>
-      <div class="typed"><span id="typed"></span><span class="caret"></span></div>
-    </div>
-    <div class="bottom">
-      <p class="privacy" data-fr>Vox Caladrii fonctionne entièrement sur votre ordinateur.</p><p class="privacy" data-en>Vox Caladrii runs entirely on your computer.</p><p class="privacy" data-es>Vox Caladrii funciona íntegramente en su ordenador.</p><p class="privacy" data-de>Vox Caladrii läuft vollständig auf Ihrem Computer.</p>
-      <p class="privacy" data-fr>Vox Caladrii FR est disponible aujourd'hui&nbsp;; les modèles DE et EN sont en cours de développement.</p><p class="privacy" data-en>Vox Caladrii FR is available today; the DE and EN models are in development.</p><p class="privacy" data-es>Vox Caladrii FR ya está disponible; los modelos DE y EN están en desarrollo.</p><p class="privacy" data-de>Vox Caladrii FR ist heute verfügbar; die Modelle DE und EN befinden sich in Entwicklung.</p>
-      <p class="soon" data-fr>Bientôt disponible</p><p class="soon" data-en>Coming soon</p><p class="soon" data-es>Próximamente</p><p class="soon" data-de>Demnächst verfügbar</p>
-    </div>
-  </section>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="w bar">
+    <a class="logo" href="/" aria-label="Vox Caladrii"><img src="/assets/vox-caladrii-logo.svg?v=20261116" width="170" height="34" alt="Vox Caladrii"></a>
+    <nav aria-label="Navigation"><a href="/modeles/"><span data-fr>Modèles</span><span data-en>Models</span><span data-es>Modelos</span><span data-de>Modelle</span></a><a href="/evaluation/"><span data-fr>Évaluation</span><span data-en>Evaluation</span><span data-es>Evaluación</span><span data-de>Evaluierung</span></a><a href="/donnees/"><span data-fr>Données</span><span data-en>Data</span><span data-es>Datos</span><span data-de>Daten</span></a><a href="/contribuer/"><span data-fr>Contribuer</span><span data-en>Contribute</span><span data-es>Contribuir</span><span data-de>Mitwirken</span></a></nav>
+    <div class="lang" role="group" aria-label="Language / Langue"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="fr" aria-pressed="false">FR</button><button type="button" data-lang="es" aria-pressed="false">ES</button><button type="button" data-lang="de" aria-pressed="false">DE</button></div>
+    <button class="menu-btn" type="button" aria-expanded="false">Menu</button>
+  </div>
+</header>
+<main id="main">
+<div class="w hero">
+  <h1><span data-fr>La reconnaissance vocale entraînée pour <em>la radiologie.</em></span><span data-en>Speech recognition trained for <em>radiology.</em></span><span data-es>El reconocimiento de voz entrenado para <em>la radiología.</em></span><span data-de>Spracherkennung, trainiert für <em>Radiologie.</em></span></h1>
+  <p class="lead" data-fr>Vox Caladrii est une famille de modèles de reconnaissance vocale qui connaissent le vocabulaire du radiologue : anatomie, éponymes, classifications, médicaments. Mesurés sur des phrases qu'ils n'ont jamais entendues, construits sans aucune donnée de patient, et exécutés entièrement sur l'ordinateur, dans NiderVoice.</p>
+  <p class="lead" data-en>Vox Caladrii is a family of speech-recognition models that know the radiologist's vocabulary: anatomy, eponyms, classifications, drugs. Measured on sentences they have never heard, built without a single patient record, and run entirely on the computer, in NiderVoice.</p><p class="lead" data-es>Vox Caladrii es una familia de modelos de reconocimiento de voz que conocen el vocabulario del radiólogo: anatomía, eponimos, clasificaciones, fármacos. Medidos en frases que nunca han escuchado, construidos sin un solo registro de paciente, y ejecutados íntegramente en el ordenador, en NiderVoice.</p><p class="lead" data-de>Vox Caladrii ist eine Familie von Spracherkennungsmodellen, die den Vokabular des Radiologen beherrschen: Anatomie, Eponyme, Klassifikationen, Medikamente. Gemessen an Sätzen, die sie noch nie gehört haben, ohne eine einzige Patientenakte erstellt und vollständig auf dem Computer, in NiderVoice, ausgeführt.</p>
+  <div class="stage" aria-label="Animation">
+    <canvas id="wave" aria-hidden="true"></canvas>
+    <p class="dictee" id="dictee" lang="fr" aria-live="off">Malformation artério-veineuse grade 3 de <span class="term">Spetzler-Martin</span>.</p>
+    <p class="note"><span data-fr>Exemple illustratif, texte fictif. Vox Caladrii FR transcrit le français.</span><span data-en>Illustrative example, fictitious text. Vox Caladrii FR transcribes French.</span><span data-es>Ejemplo ilustrativo, texto ficticio. Vox Caladrii FR transcribe francés.</span><span data-de>Anschauungsbeispiel, fiktiver Text. Vox Caladrii FR transkribiert Französisch.</span></p>
+  </div>
 </div>
 
-<section class="band">
-  <h2><span data-fr>Comment ça fonctionne</span><span data-en>How it works</span><span data-es>Cómo funciona</span><span data-de>So funktioniert es</span></h2>
-  <div class="chain">
-    <div class="step"><div class="ic"><svg width="26" height="32" viewBox="0 0 24 30" aria-hidden="true"><rect x="7" y="2" width="10" height="16" rx="5" fill="#378ADD"/><path d="M3 14a9 9 0 0 0 18 0M12 23v5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div><b><span data-fr>Votre voix</span><span data-en>Your voice</span><span data-es>Su voz</span><span data-de>Ihre Stimme</span></b><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
-    <div class="step on"><div class="ic"><img src="assets/vox-caladrii-icon.svg" width="34" height="34" alt=""></div><b>Vox Caladrii</b><small><span data-fr>le modèle&nbsp;: reconnaît la terminologie</span><span data-en>the model: recognises the terminology</span><span data-es>el modelo: reconoce la terminología</span><span data-de>das Modell: erkennt die Fachterminologie</span></small><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
-    <div class="step"><div class="ic"><img src="assets/nidervoice-icon.svg" width="34" height="34" alt=""></div><b>NiderVoice</b><small><span data-fr>le logiciel&nbsp;: écrit dans vos documents</span><span data-en>the software: writes into your documents</span><span data-es>el programa: escribe en sus documentos</span><span data-de>die Software: schreibt in Ihre Dokumente</span></small><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div><div class="arrow" aria-hidden="true">→</div>
-    <div class="step"><div class="ic"><svg width="24" height="30" viewBox="0 0 24 30" aria-hidden="true"><path d="M3 2h12l6 6v20H3z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 14h10M7 19h10M7 24h6" stroke="#378ADD" stroke-width="2" stroke-linecap="round"/></svg></div><b><span data-fr>Vos documents</span><span data-en>Your documents</span><span data-es>Sus documentos</span><span data-de>Ihre Dokumente</span></b><div class="here"><span data-fr>Vous êtes ici</span><span data-en>You are here</span><span data-es>Está aquí</span><span data-de>Sie sind hier</span></div></div>
+<section style="padding-top:56px">
+  <div class="w">
+    <div class="figures reveal">
+      <div>
+        <div class="v num"><span data-fr>4,4</span><span data-en>4.4</span><span data-es>4,4</span><span data-de>4,4</span><small>%</small></div>
+        <p class="k" data-fr>de mots erronés sur 98 phrases radiologiques jamais utilisées pour l'entraînement.</p>
+        <p class="k" data-en>word error rate on 98 radiology sentences never used for training.</p><p class="k" data-es>tasa de error de palabras en 98 frases de radiología nunca utilizadas para el entrenamiento.</p><p class="k" data-de>Wortfehlerrate an 98 Radiologiesätzen, die nie für das Training verwendet wurden.</p>
+        <p class="s" data-fr>Vox Caladrii FR 1.1, 1 004 mots, même moteur que le logiciel.</p>
+        <p class="s" data-en>Vox Caladrii FR 1.1, 1,004 words, same engine as the software.</p><p class="s" data-es>Vox Caladrii FR 1.1, 1.004 palabras, mismo motor que el software.</p><p class="s" data-de>Vox Caladrii FR 1.1, 1.004 Wörter, dieselbe Engine wie die Software.</p>
+      </div>
+      <div>
+        <div class="v num">×4</div>
+        <p class="k" data-fr>environ quatre fois moins d'erreurs que Whisper Large v3 Turbo sur les mêmes enregistrements.</p>
+        <p class="k" data-en>roughly four times fewer errors than Whisper Large v3 Turbo on the same recordings.</p><p class="k" data-es>aproximadamente cuatro veces menos errores que Whisper Large v3 Turbo en las mismas grabaciones.</p><p class="k" data-de>etwa viermal weniger Fehler als Whisper Large v3 Turbo bei denselben Aufnahmen.</p>
+        <p class="s" data-fr>Whisper : 17,2 % à 19,4 % selon le micro.</p>
+        <p class="s" data-en>Whisper: 17.2% to 19.4% depending on the microphone.</p><p class="s" data-es>Whisper: del 17,2 % al 19,4 % según el micrófono.</p><p class="s" data-de>Whisper: 17,2 % bis 19,4 %, abhängig vom Mikrofon.</p>
+      </div>
+      <div>
+        <div class="v num">0</div>
+        <p class="k" data-fr>donnée de patient, compte rendu réel ou enregistrement hospitalier dans les données d'entraînement.</p>
+        <p class="k" data-en>patient records, real reports or hospital recordings in the training data.</p><p class="k" data-es>historiales de pacientes, informes reales o grabaciones de hospital en los datos de entrenamiento.</p><p class="k" data-de>Patientenakten, echte Berichte oder Krankenhausaufnahmen in den Trainingsdaten.</p>
+        <p class="s" data-fr>Chaque source est tracée, avec sa licence.</p>
+        <p class="s" data-en>Every source is traced, with its licence.</p><p class="s" data-es>Cada fuente está registrada, con su licencia.</p><p class="s" data-de>Jede Quelle ist dokumentiert, mit ihrer Lizenz.</p>
+      </div>
+    </div>
+    <p class="small" style="margin-top:28px"><a href="/evaluation/"><span data-fr>La méthode, tous les chiffres et leurs limites</span><span data-en>The method, all the figures and their limits</span><span data-es>El método, todas las cifras y sus límites</span><span data-de>Die Methode, alle Zahlen und ihre Grenzen</span></a></p>
   </div>
 </section>
 
-<section class="legend">
-  <img src="assets/vox-caladrii-icon.svg?v=20261108" alt="" aria-hidden="true">
-  <p data-fr>Dans les bestiaires médiévaux, le caladre était un oiseau blanc que l'on amenait au chevet des malades. Vox Caladrii — la voix du caladre — en tient son nom.</p><p data-en>In medieval bestiaries, the caladrius was a white bird brought to the bedside of the sick. Vox Caladrii — the voice of the caladrius — takes its name from it.</p><p data-es>En los bestiarios medievales, el caladrio era un ave blanca que se llevaba junto al lecho de los enfermos. Vox Caladrii —la voz del caladrio— toma de él su nombre.</p><p data-de>In mittelalterlichen Bestiarien war der Caladrius ein weißer Vogel, den man ans Krankenbett brachte. Vox Caladrii — die Stimme des Caladrius — verdankt ihm seinen Namen.</p>
+<section class="tint">
+  <div class="w">
+    <div class="sec-head">
+      <h2><span data-fr>Chaque spécialité a <em>ses mots.</em></span><span data-en>Every specialty has <em>its own words.</em></span><span data-es>Cada especialidad tiene <em>sus propias palabras.</em></span><span data-de>Jede Fachrichtung hat <em>ihre eigenen Begriffe.</em></span></h2>
+      <p data-fr>Les grands modèles généralistes ont entendu des milliers d'heures de conversation, mais presque jamais « Spetzler-Martin » ou « LI-RADS 3 ». Ils écrivent alors ce qu'ils connaissent : un mot proche, un nom mal orthographié, un sigle coupé en morceaux. Vox Caladrii a été entraîné précisément là où ils se trompent.</p>
+      <p data-en>Large general-purpose models have heard thousands of hours of conversation, but almost never "Spetzler-Martin" or "LI-RADS 3". So they write what they know: a similar word, a misspelt name, an acronym broken into pieces. Vox Caladrii was trained precisely where they go wrong.</p><p data-es>Los grandes modelos de propósito general han escuchado miles de horas de conversaciones, pero casi nunca "Spetzler-Martin" o "LI-RADS 3". Por eso escriben lo que conocen: una palabra similar, un nombre mal escrito, un acrónimo descompuesto. Vox Caladrii se ha entrenado precisamente donde ellos fallan.</p><p data-de>Große Allzweckmodelle haben tausende Stunden von Gesprächen gehört, aber fast nie "Spetzler-Martin" oder "LI-RADS 3". Also schreiben sie, was sie kennen: ein ähnliches Wort, einen falsch geschriebenen Namen, ein Akronym in Einzelteile zerlegt. Vox Caladrii wurde genau dort trainiert, wo sie falsch liegen.</p>
+    </div>
+    <div class="cols3">
+      <div class="item rule-top reveal">
+        <h3><span data-fr>Classifications</span><span data-en>Classifications</span><span data-es>Clasificaciones</span><span data-de>Klassifikationen</span></h3>
+        <p data-fr>BI-RADS, PI-RADS, LI-RADS, O-RADS, EU-TIRADS, Lung-RADS, CAD-RADS, Bosniak, Fazekas, Deauville, RECIST… écrites dans leur forme officielle, scores en chiffres arabes.</p>
+        <p data-en>BI-RADS, PI-RADS, LI-RADS, O-RADS, EU-TIRADS, Lung-RADS, CAD-RADS, Bosniak, Fazekas, Deauville, RECIST… written in their official form, with scores in Arabic numerals.</p><p data-es>BI-RADS, PI-RADS, LI-RADS, O-RADS, EU-TIRADS, Lung-RADS, CAD-RADS, Bosniak, Fazekas, Deauville, RECIST… escritos en su forma oficial, con puntuaciones en números arábigos.</p><p data-de>BI-RADS, PI-RADS, LI-RADS, O-RADS, EU-TIRADS, Lung-RADS, CAD-RADS, Bosniak, Fazekas, Deauville, RECIST… in ihrer offiziellen Form, mit Werten in arabischen Ziffern.</p>
+      </div>
+      <div class="item rule-top reveal">
+        <h3><span data-fr>Éponymes</span><span data-en>Eponyms</span><span data-es>Epónimos</span><span data-de>Eponyme</span></h3>
+        <p data-fr>Klatskin, Mounier-Kuhn, Kellgren-Lawrence, Goutallier, Haglund, Baastrup, Mirizzi, Krukenberg… plus de dix mille noms propres et sigles, chacun vérifié dans son orthographe officielle.</p>
+        <p data-en>Klatskin, Mounier-Kuhn, Kellgren-Lawrence, Goutallier, Haglund, Baastrup, Mirizzi, Krukenberg… more than ten thousand proper names and acronyms, each checked against its official spelling.</p><p data-es>Klatskin, Mounier-Kuhn, Kellgren-Lawrence, Goutallier, Haglund, Baastrup, Mirizzi, Krukenberg… más de diez mil nombres propios y acrónimos, cada uno verificado frente a su ortografía oficial.</p><p data-de>Klatskin, Mounier-Kuhn, Kellgren-Lawrence, Goutallier, Haglund, Baastrup, Mirizzi, Krukenberg… mehr als zehntausend Eigennamen und Abkürzungen, jeder gegen seine offizielle Schreibweise überprüft.</p>
+      </div>
+      <div class="item rule-top reveal">
+        <h3><span data-fr>Conventions d'écriture</span><span data-en>Writing conventions</span><span data-es>Convenciones de escritura</span><span data-de>Schreibkonventionen</span></h3>
+        <p data-fr>Traits d'union (fémoro-tibial, artério-veineux), termes en un mot (hypersignal), vertèbres notées D12, sigles tels que dictés : le texte sort dans la forme qu'un radiologue relit sans retoucher.</p>
+        <p data-en>Hyphens (fémoro-tibial, artério-veineux), single-word terms (hypersignal), vertebrae written D12, acronyms as dictated: the text comes out in the form a radiologist can review without retouching.</p><p data-es>Guiones (fémoro-tibial, artério-veineux), términos en una sola palabra (hypersignal), vértebras escritas D12, siglas tal como se dictan: el texto sale en la forma que un radiólogo puede revisar sin retocar.</p><p data-de>Bindestriche (fémoro-tibial, artério-veineux), Begriffe in einem Wort (hypersignal), Wirbel als D12 geschrieben, Abkürzungen wie diktiert: Der Text erscheint in der Form, die eine Radiologin oder ein Radiologe ohne Nachbearbeitung prüfen kann.</p>
+      </div>
+    </div>
+  </div>
 </section>
-<footer><span data-fr>Outil de dictée. Ne constitue pas une aide au diagnostic.</span><span data-en>Dictation tool. Not a diagnostic aid.</span><span data-es>Herramienta de dictado. No constituye una ayuda al diagnóstico.</span><span data-de>Diktierwerkzeug. Kein Hilfsmittel zur Diagnose.</span><br><span data-fr>Conception&nbsp;: NiderLabs · Distribution, licences et assistance&nbsp;: GOKYO S.à r.l.-S, Luxembourg</span><span data-en>Design: NiderLabs · Distribution, licences and support: GOKYO S.à r.l.-S, Luxembourg</span><span data-es>Diseño: NiderLabs · Distribución, licencias y asistencia: GOKYO S.à r.l.-S, Luxemburgo</span><span data-de>Konzeption: NiderLabs · Vertrieb, Lizenzen und Support: GOKYO S.à r.l.-S, Luxemburg</span><br>© 2026 NiderLabs · <a href="mailto:contact@niderlabs.com">contact@niderlabs.com</a></footer>
 
-<script>
-(function(){
-  var html=document.documentElement, LANGS=['fr','en','es','de'];
-  function setLang(l){
-    html.lang=l;
-    document.querySelectorAll('.lang button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.lang===l)});
-  }
-  // Browser language by default (French, English, Spanish or German), else English.
-  var nav=((navigator.languages&&navigator.languages[0])||navigator.language||'fr').slice(0,2).toLowerCase();
-  setLang(LANGS.indexOf(nav)>=0?nav:'en');
-  document.querySelectorAll('.lang button').forEach(function(b){
-    b.addEventListener('click',function(){setLang(b.dataset.lang);restart();});
-  });
+<section>
+  <div class="w">
+    <div class="sec-head">
+      <h2><span data-fr>Ce qui est entré. <em>Ce qui n'entrera jamais.</em></span><span data-en>What went in. <em>What never will.</em></span><span data-es>Lo que entró. <em>Lo que nunca entrará.</em></span><span data-de>Was hineingeflossen ist. <em>Was nie hineinkommt.</em></span></h2>
+      <p data-fr>La confiance dans un modèle commence par ses données. Nous publions leur nature et leur volume ; nous gardons pour nous la recette.</p>
+      <p data-en>Trust in a model starts with its data. We publish their nature and volume; we keep the recipe to ourselves.</p><p data-es>La confianza en un modelo comienza con sus datos. Publicamos su naturaleza y volumen; guardamos la receta para nosotros.</p><p data-de>Vertrauen in ein Modell beginnt mit seinen Daten. Wir veröffentlichen ihre Art und ihr Volumen; wir behalten das Rezept für uns.</p>
+    </div>
+    <div class="ledger reveal">
+      <div>
+        <h3><span data-fr>Dans les données</span><span data-en>In the data</span><span data-es>En los datos</span><span data-de>In den Daten</span></h3>
+        <ul>
+          <li><span class="q num"><span data-fr>1 100 h</span><span data-en>1,100 h</span><span data-es>1100 h</span><span data-de>1.100 h</span></span><span><span data-fr>de français parlé réel, issu de corpus publics sous licence ouverte</span><span data-en>of real spoken French, from public corpora under open licences</span><span data-es>de francés hablado real, de corpora públicos bajo licencias abiertas</span><span data-de>von echtem gesprochenem Französisch, aus öffentlichen Korpora unter offenen Lizenzen</span><em><span data-fr>Common Voice, VoxPopuli, Multilingual LibriSpeech</span><span data-en>Common Voice, VoxPopuli, Multilingual LibriSpeech</span><span data-es>Common Voice, VoxPopuli, Multilingual LibriSpeech</span><span data-de>Common Voice, VoxPopuli, Multilingual LibriSpeech</span></em></span></li>
+          <li><span class="q num">500 h</span><span><span data-fr>de phrases radiologiques rédigées pour l'entraînement, lues par plus de 150 voix de synthèse</span><span data-en>of radiology sentences written for training, read by more than 150 synthetic voices</span><span data-es>de frases de radiología escritas para el entrenamiento, leídas por más de 150 voces sintéticas</span><span data-de>von Radiologiesätzen, die für das Training geschrieben und von mehr als 150 synthetischen Stimmen vorgelesen wurden</span><em><span data-fr>extraits contrôlés automatiquement, les fautifs écartés</span><span data-en>clips checked automatically, faulty ones discarded</span><span data-es>clips verificados automáticamente, los defectuosos descartados</span><span data-de>Clips automatisch überprüft, fehlerhafte verworfen</span></em></span></li>
+          <li><span class="q num"><span data-fr>62 000</span><span data-en>62,000</span><span data-es>62 000</span><span data-de>62.000</span></span><span><span data-fr>termes de vocabulaire radiologique, dont plus de 10 000 noms propres et sigles</span><span data-en>radiology vocabulary terms, including more than 10,000 proper names and acronyms</span><span data-es>términos de vocabulario de radiología, incluidos más de 10.000 nombres y acrónimos propios</span><span data-de>radiologische Vokabularbegriffe, einschließlich mehr als 10.000 Eigennamen und Abkürzungen</span></span></li>
+          <li><span class="q num">46 min</span><span><span data-fr>de voix réelle d'un radiologue, enregistrée avec son consentement écrit (version 1.1)</span><span data-en>of a radiologist's real voice, recorded with written consent (version 1.1)</span><span data-es>de la voz real de un radiólogo, grabada con consentimiento por escrito (versión 1.1)</span><span data-de>einer echten Stimme eines Radiologen, aufgenommen mit schriftlicher Einwilligung (Version 1.1)</span><em><span data-fr>jamais diffusée</span><span data-en>never distributed</span><span data-es>nunca distribuido</span><span data-de>nie weitergegeben</span></em></span></li>
+        </ul>
+      </div>
+      <div>
+        <h3><span data-fr>Jamais dans les données</span><span data-en>Never in the data</span><span data-es>Nunca en los datos</span><span data-de>Niemals in den Daten</span></h3>
+        <ul>
+          <li class="zero"><span class="q">0</span><span><span data-fr>donnée de patient</span><span data-en>patient records</span><span data-es>historiales de pacientes</span><span data-de>Patientendaten</span></span></li>
+          <li class="zero"><span class="q">0</span><span><span data-fr>compte rendu réel, d'aucun hôpital ni cabinet</span><span data-en>real reports, from any hospital or practice</span><span data-es>informes reales, de cualquier hospital o consulta</span><span data-de>echte Berichte aus jedem Krankenhaus oder jeder Praxis</span></span></li>
+          <li class="zero"><span class="q">0</span><span><span data-fr>enregistrement fait dans un hôpital</span><span data-en>recordings made in a hospital</span><span data-es>grabaciones realizadas en un hospital</span><span data-de>Aufnahmen, die in einem Krankenhaus gemacht wurden</span></span></li>
+          <li class="zero"><span class="q">0</span><span><span data-fr>phrase des jeux de test, ni phrase trop proche</span><span data-en>test-set sentences, or sentences too close to them</span><span data-es>oraciones del conjunto de prueba o demasiado similares a ellas</span><span data-de>Sätze aus den Testdatensätzen oder zu ähnliche Sätze</span></span></li>
+          <li class="zero"><span class="q">0</span><span><span data-fr>voix dont la licence n'a pas pu être vérifiée</span><span data-en>voices whose licence could not be verified</span><span data-es>voces cuya licencia no pudo verificarse</span><span data-de>Stimmen, deren Lizenz nicht überprüft werden konnte</span></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="small" style="margin-top:24px"><a href="/donnees/"><span data-fr>L'origine des données en détail</span><span data-en>Data provenance in detail</span><span data-es>Procedencia de los datos en detalle</span><span data-de>Datenherkunft im Detail</span></a></p>
+  </div>
+</section>
 
-  var texts={fr:"Foie de morphologie habituelle. Absence de dilatation des voies biliaires.",en:"Liver of normal morphology. No biliary dilatation.",es:"Hígado de morfología habitual. Sin dilatación de la vía biliar.",de:"Leber von regelrechter Morphologie. Keine Erweiterung der Gallenwege."};
-  var demo=document.getElementById('demo'), wave=demo.querySelector('.wave'), out=document.getElementById('typed');
-  var heights=[10,22,34,18,40,26,14,30,44,20,12,28,36,16,24,38,18,10,26,32];
-  heights.forEach(function(h){var s=document.createElement('span');s.style.height=h+'px';wave.appendChild(s)});
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var timer=null, frame=null;
+<section class="tint">
+  <div class="w">
+    <div class="sec-head">
+      <h2><span data-fr>Les modèles</span><span data-en>The models</span><span data-es>Los modelos</span><span data-de>Die Modelle</span></h2>
+      <p data-fr>Chaque version reçoit une fiche : usage prévu, limites, données, résultats mesurés, licence, empreinte et signature. Le logiciel NiderVoice vérifie la signature avant de charger un modèle.</p>
+      <p data-en>Each release gets a card: intended use, limits, data, measured results, licence, fingerprint and signature. The NiderVoice software checks the signature before loading a model.</p><p data-es>Cada versión recibe una tarjeta: uso previsto, límites, datos, resultados medidos, licencia, huella y firma. El software NiderVoice verifica la firma antes de cargar un modelo.</p><p data-de>Jede Version erhält eine Karte: vorgesehene Verwendung, Grenzen, Daten, gemessene Ergebnisse, Lizenz, Prüfsumme und Signatur. Die Software NiderVoice prüft die Signatur, bevor sie ein Modell lädt.</p>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table class="tbl">
+        <thead><tr><th><span data-fr>Modèle</span><span data-en>Model</span><span data-es>Modelo</span><span data-de>Modell</span></th><th><span data-fr>Langue</span><span data-en>Language</span><span data-es>Idioma</span><span data-de>Sprache</span></th><th><span data-fr>État</span><span data-en>Status</span><span data-es>Estado</span><span data-de>Status</span></th><th class="r"><span data-fr>Erreurs, test 3</span><span data-en>Errors, test 3</span><span data-es>Errores, prueba 3</span><span data-de>Fehler, Test 3</span></th></tr></thead>
+        <tbody>
+          <tr class="us"><td>Vox Caladrii FR 1.1</td><td><span data-fr>Français</span><span data-en>French</span><span data-es>Francés</span><span data-de>Französisch</span></td><td><span data-fr>Disponible dans NiderVoice</span><span data-en>Available in NiderVoice</span><span data-es>Disponible en NiderVoice</span><span data-de>In NiderVoice verfügbar</span></td><td class="r num"><span data-fr>4,4 %</span><span data-en>4.4%</span><span data-es>4,4 %</span><span data-de>4,4 %</span></td></tr>
+          <tr><td>Vox Caladrii FR 1.0</td><td><span data-fr>Français</span><span data-en>French</span><span data-es>Francés</span><span data-de>Französisch</span></td><td><span data-fr>Version précédente</span><span data-en>Previous release</span><span data-es>Versión anterior</span><span data-de>Vorherige Version</span></td><td class="r num"><span data-fr>6,2 – 6,8 %</span><span data-en>6.2–6.8%</span><span data-es>6,2 – 6,8 %</span><span data-de>6,2 – 6,8 %</span></td></tr>
+          <tr><td>Vox Caladrii DE</td><td><span data-fr>Allemand</span><span data-en>German</span><span data-es>Alemán</span><span data-de>Deutsch</span></td><td><span data-fr>En développement</span><span data-en>In development</span><span data-es>En desarrollo</span><span data-de>In Entwicklung</span></td><td class="r">—</td></tr>
+          <tr><td>Vox Caladrii EN</td><td><span data-fr>Anglais</span><span data-en>English</span><span data-es>Inglés</span><span data-de>Englisch</span></td><td><span data-fr>En développement</span><span data-en>In development</span><span data-es>En desarrollo</span><span data-de>In Entwicklung</span></td><td class="r">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:24px"><a href="/modeles/"><span data-fr>Lire les fiches modèles</span><span data-en>Read the model cards</span><span data-es>Consulte las fichas de modelo</span><span data-de>Lesen Sie die Modellkarten</span></a></p>
+  </div>
+</section>
 
-  function animateWave(){
-    var t=0;
-    frame=setInterval(function(){
-      t++;
-      wave.querySelectorAll('span').forEach(function(s,i){
-        var base=heights[i]; s.style.height=Math.max(6,base*(0.55+0.45*Math.abs(Math.sin((t+i*2)/4))))+'px';
-      });
-    },80);
-  }
-  function run(){
-    var txt=texts[html.lang]||texts.fr;
-    if(reduce){demo.classList.add('typing');out.textContent=txt;return}
-    demo.classList.remove('typing'); out.textContent='';
-    animateWave();
-    timer=setTimeout(function(){
-      clearInterval(frame); demo.classList.add('typing');
-      var i=0;
-      (function type(){
-        out.textContent=txt.slice(0,++i);
-        if(i<txt.length){timer=setTimeout(type,38)}
-        else{timer=setTimeout(run,4500)}
-      })();
-    },2200);
-  }
-  function stop(){clearTimeout(timer);clearInterval(frame)}
-  function restart(){stop();run()}
-  document.addEventListener('visibilitychange',function(){document.hidden?stop():restart()});
-  if(location.hash==='#final'){demo.classList.add('typing');out.textContent=texts.fr}else{run()}
-})();
-</script>
+<section>
+  <div class="w legend">
+    <img src="/assets/vox-caladrii-icon.svg" width="300" height="300" alt="">
+    <div>
+      <blockquote><span data-fr>Dans les bestiaires médiévaux, le caladre était un oiseau blanc que l'on amenait au chevet des malades.</span><span data-en>In medieval bestiaries, the caladrius was a white bird brought to the bedside of the sick.</span><span data-es>En los bestiarios medievales, el caladrio era un ave blanca que se llevaba al lado de los enfermos.</span><span data-de>In mittelalterlichen Bestiarien war der Caladrius ein weißer Vogel, der an das Bett der Kranken gebracht wurde.</span></blockquote>
+      <p class="lead" style="margin-top:20px" data-fr>Vox Caladrii, la voix du caladre, en tient son nom. Le modèle, lui, ne fait qu'écrire ce qu'on lui dicte : c'est un outil de dictée, qui ne fournit aucune information à visée diagnostique.</p>
+      <p class="lead" style="margin-top:20px" data-en>Vox Caladrii, the voice of the caladrius, takes its name from it. The model itself only writes what is dictated: it is a dictation tool, providing no information for diagnostic purposes.</p><p class="lead" style="margin-top:20px" data-es>Vox Caladrii, la voz del caladrio, toma su nombre de este. El modelo en sí solo escribe lo que se dicta: es una herramienta de dictado, sin proporcionar información con fines diagnósticos.</p><p class="lead" style="margin-top:20px" data-de>Vox Caladrii, die Stimme des Kaladrius, leitet seinen Namen davon ab. Das Modell selbst schreibt nur, was diktiert wird: Es ist ein Diktierwerkzeug, das keine Informationen für diagnostische Zwecke bereitstellt.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="w">
+    <div class="next">
+      <a href="/evaluation/"><b><span data-fr>Évaluation</span><span data-en>Evaluation</span><span data-es>Evaluación</span><span data-de>Evaluierung</span></b><span data-fr>Jeux de test gelés, calcul, résultats et limites.</span><span data-en>Frozen test sets, scoring, results and limits.</span><span data-es>Conjuntos de prueba congelados, puntuación, resultados y límites.</span><span data-de>Eingefrorene Testdatensätze, Bewertung, Ergebnisse und Grenzen.</span></a>
+      <a href="/donnees/"><b><span data-fr>Origine des données</span><span data-en>Data provenance</span><span data-es>Origen de los datos</span><span data-de>Herkunft der Daten</span></b><span data-fr>Sources, licences, filtres et traçabilité.</span><span data-en>Sources, licences, filters and traceability.</span><span data-es>Fuentes, licencias, filtros y trazabilidad.</span><span data-de>Quellen, Lizenzen, Filter und Nachverfolgbarkeit.</span></a>
+      <a href="/contribuer/"><b><span data-fr>Contribuer</span><span data-en>Contribute</span><span data-es>Contribuir</span><span data-de>Beitragen</span></b><span data-fr>Prêter sa voix, avec un consentement éclairé.</span><span data-en>Lend your voice, with informed consent.</span><span data-es>Preste su voz, con consentimiento informado.</span><span data-de>Leihen Sie Ihre Stimme mit informierter Einwilligung.</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="w">
+    <div class="cols">
+      <div class="brand"><img src="/assets/vox-caladrii-logo.svg?v=20261116" width="150" height="30" alt="Vox Caladrii"><p><span data-fr>Modèles de reconnaissance vocale spécialisés, conçus par NiderLabs. Ils fonctionnent dans le logiciel NiderVoice, entièrement sur l’ordinateur.</span><span data-en>Specialised speech-recognition models designed by NiderLabs. They run in the NiderVoice software, entirely on the computer.</span><span data-es>Modelos de reconocimiento de voz especializados, diseñados por NiderLabs. Funcionan en el programa NiderVoice, íntegramente en el ordenador.</span><span data-de>Spezialisierte Spracherkennungsmodelle, entwickelt von NiderLabs. Sie laufen in der Software NiderVoice, vollständig auf dem Computer.</span></p></div>
+      <div><h4><span data-fr>Modèles</span><span data-en>Models</span><span data-es>Modelos</span><span data-de>Modelle</span></h4><ul><li><a href="/modeles/"><span data-fr>Fiches modèles</span><span data-en>Model cards</span><span data-es>Fichas de modelo</span><span data-de>Modellkarten</span></a></li><li><a href="/modeles/#feuille-de-route"><span data-fr>Feuille de route</span><span data-en>Roadmap</span><span data-es>Hoja de ruta</span><span data-de>Roadmap</span></a></li><li><a href="https://nidervoice.com/"><span data-fr>Le logiciel NiderVoice</span><span data-en>The NiderVoice software</span><span data-es>El programa NiderVoice</span><span data-de>Die Software NiderVoice</span></a></li></ul></div>
+      <div><h4><span data-fr>Le laboratoire</span><span data-en>The lab</span><span data-es>El laboratorio</span><span data-de>Das Labor</span></h4><ul><li><a href="/evaluation/"><span data-fr>Méthode et résultats</span><span data-en>Method and results</span><span data-es>Método y resultados</span><span data-de>Methode und Ergebnisse</span></a></li><li><a href="/donnees/"><span data-fr>Origine des données</span><span data-en>Data provenance</span><span data-es>Origen de los datos</span><span data-de>Herkunft der Daten</span></a></li><li><a href="/contribuer/"><span data-fr>Contribuer</span><span data-en>Contribute</span><span data-es>Contribuir</span><span data-de>Mitwirken</span></a></li><li><a href="https://niderlabs.com/"><span data-fr>Le concepteur NiderLabs</span><span data-en>The designer, NiderLabs</span><span data-es>El diseñador NiderLabs</span><span data-de>Der Entwickler NiderLabs</span></a></li></ul></div>
+      <div><h4><span data-fr>Légal</span><span data-en>Legal</span><span data-es>Legal</span><span data-de>Rechtliches</span></h4><ul><li><a href="/mentions-legales/"><span data-fr>Mentions légales</span><span data-en>Legal notice</span><span data-es>Aviso legal</span><span data-de>Impressum</span></a></li><li><a href="/mentions-legales/#confidentialite"><span data-fr>Confidentialité du site</span><span data-en>Site privacy</span><span data-es>Privacidad del sitio</span><span data-de>Datenschutz der Website</span></a></li><li><a href="mailto:contact@niderlabs.com">contact@niderlabs.com</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 NiderLabs</span><span><span data-fr>Distribution, licences et assistance : GOKYO S.à r.l.-S, Luxembourg</span><span data-en>Distribution, licences and support: GOKYO S.à r.l.-S, Luxembourg</span><span data-es>Distribución, licencias y asistencia: GOKYO S.à r.l.-S, Luxemburgo</span><span data-de>Vertrieb, Lizenzen und Support: GOKYO S.à r.l.-S, Luxemburg</span></span><span><span data-fr>Outil de dictée. Ne fournit aucune information à visée diagnostique ou thérapeutique.</span><span data-en>Dictation tool. It provides no information for diagnostic or therapeutic purposes.</span><span data-es>Herramienta de dictado. No proporciona información con fines diagnósticos o terapéuticos.</span><span data-de>Diktierwerkzeug. Es liefert keine Informationen zu diagnostischen oder therapeutischen Zwecken.</span></span><span><span data-fr>Aucun cookie, aucun traceur.</span><span data-en>No cookies, no trackers.</span><span data-es>Ningún cookie, ningún rastreador.</span><span data-de>Keine Cookies, keine Tracker.</span></span></div>
+  </div>
+</footer>
+<script src="/assets/cl.js?v=20261116a"></script>
 </body>
 </html>
