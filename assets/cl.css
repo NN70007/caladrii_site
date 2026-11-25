@@ -226,3 +226,17 @@ footer .legal{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
 .cf-carte .cf{--cf-tx:#10233A;--cf-lab:#4A5B6E;--cf-bd:#CBD5E1;--cf-bg:#fff;--cf-focus:#2F6FB5;--cf-err:#B3261E;--cf-btn-bg:#0C2D52;--cf-btn-tx:#fff;--cf-note:#6B7A8C}
 @media(max-width:900px){.cf-grille{grid-template-columns:minmax(0,1fr);gap:28px}.cf-carte{padding:22px}}
 .cf-ou{margin:6px 0 0;font-size:15.5px;line-height:1.8;color:#4A5B6E}
+
+/* Pied de page commun aux sites NiderLabs (même distribution que Crosswind METAR) */
+footer.pc{--pc-fort:#10233A;--pc-doux:#5A6B7D;--pc-trait:#D9E1EA;--pc-accent:#0C2D52;border-top:1px solid var(--pc-trait);padding:0;margin-top:0}
+.pc-haut{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:40px;padding:58px 0 46px}
+.pc-marque p{margin:16px 0 0;font-size:15px;line-height:1.75;color:var(--pc-doux);max-width:44ch}
+.pc-col h4{margin:4px 0 20px;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--pc-doux)}
+.pc-col a{display:block;margin:0 0 15px;font-size:16px;line-height:1.35;color:var(--pc-fort);text-decoration:none}
+.pc-col a:hover,.pc-legal a:hover{text-decoration:underline}
+.pc-bas{display:flex;justify-content:space-between;align-items:baseline;gap:14px 32px;flex-wrap:wrap;border-top:1px solid var(--pc-trait);padding:22px 0 30px;font-size:14px;line-height:1.6;color:var(--pc-doux)}
+.pc-bas p{margin:0}
+.pc-bas b{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--pc-accent)}
+.pc-legal a{color:var(--pc-fort);text-decoration:none}
+@media(max-width:900px){.pc-haut{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px 24px;padding:44px 0 34px}.pc-marque{grid-column:1/-1}}
+@media print{footer.pc{display:none}}
