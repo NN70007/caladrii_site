@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/vox-caladrii-icon.svg">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="stylesheet" href="/assets/cl.css?v=20261116a">
+<link rel="stylesheet" href="/assets/cl.css?v=20261125">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -83,7 +83,19 @@
       <p data-fr>Le programme est ouvert sur invitation, d'abord aux radiologues francophones, puis germanophones et anglophones, à mesure de l'avancement des modèles DE et EN. Les demandes d'invitation précisent la spécialité et la langue de dictée.</p>
       <p data-en>The programme is open by invitation, first to French-speaking radiologists, then to German- and English-speaking ones, as the DE and EN models progress. Requests for an invitation state the specialty and the dictation language.</p><p data-es>El programa está abierto por invitación, primero a los radiólogos francófonos y después a los germanófonos y anglófonos, a medida que avanzan los modelos DE y EN. Las solicitudes de invitación indican la especialidad y la lengua de dictado.</p><p data-de>Das Programm steht auf Einladung offen, zunächst französischsprachigen, dann deutsch- und englischsprachigen Radiologen, entsprechend dem Fortschritt der Modelle DE und EN. Einladungsanfragen nennen das Fachgebiet und die Diktiersprache.</p>
     </div>
-    <p><a href="mailto:donnees@niderlabs.com" style="font-family:var(--serif);font-size:28px">donnees@niderlabs.com</a></p>
+    <div class="cf-grille">
+      <div><p><a href="mailto:donnees@niderlabs.com" style="font-family:var(--serif);font-size:28px">donnees@niderlabs.com</a></p></div>
+      <div class="cf-carte">
+        <form class="cf" data-contact data-to="donnees@niderlabs.com" data-sujet="Vox Caladrii" novalidate>
+          <div class="cf-row"><div class="cf-champ"><label for="cf-nom"><span data-fr>Nom et prénom</span><span data-en>Full name</span><span data-es>Nombre y apellidos</span><span data-de>Vor- und Nachname</span> <span class="cf-req" aria-hidden="true">*</span></label><input id="cf-nom" data-cf="nom" data-req type="text" maxlength="120" autocomplete="name"></div><div class="cf-champ"><label for="cf-email"><span data-fr>Adresse e-mail</span><span data-en>E-mail address</span><span data-es>Correo electrónico</span><span data-de>E-Mail-Adresse</span> <span class="cf-req" aria-hidden="true">*</span></label><input id="cf-email" data-cf="email" data-req type="email" maxlength="120" autocomplete="email"></div></div>
+          <div class="cf-row"><div class="cf-champ"><label for="cf-specialite"><span data-fr>Spécialité</span><span data-en>Specialty</span><span data-es>Especialidad</span><span data-de>Fachgebiet</span></label><input id="cf-specialite" data-cf="specialite" type="text" maxlength="120"></div><div class="cf-champ"><label for="cf-objet"><span data-fr>Langue de dictée</span><span data-en>Dictation language</span><span data-es>Lengua de dictado</span><span data-de>Diktiersprache</span></label><select id="cf-objet" data-cf="objet"><option value="" data-t-fr="Choisir…" data-t-en="Select…" data-t-es="Seleccionar…" data-t-de="Auswählen…">Select…</option><option value="1" data-t-fr="Français" data-t-en="French" data-t-es="Francés" data-t-de="Französisch">French</option><option value="2" data-t-fr="Allemand" data-t-en="German" data-t-es="Alemán" data-t-de="Deutsch">German</option><option value="3" data-t-fr="Anglais" data-t-en="English" data-t-es="Inglés" data-t-de="Englisch">English</option><option value="4" data-t-fr="Autre" data-t-en="Other" data-t-es="Otro" data-t-de="Andere">Other</option></select></div></div>
+          <div class="cf-row cf-un"><div class="cf-champ"><label for="cf-message"><span data-fr>Message</span><span data-en>Message</span><span data-es>Mensaje</span><span data-de>Nachricht</span> <span class="cf-req" aria-hidden="true">*</span></label><textarea id="cf-message" data-cf="message" data-req rows="5" maxlength="1400"></textarea></div></div>
+          <div class="cf-actions"><button type="submit"><span data-fr>Préparer le message</span><span data-en>Prepare the message</span><span data-es>Preparar el mensaje</span><span data-de>Nachricht vorbereiten</span></button><button type="button" data-cf-copier><span data-fr>Copier le message</span><span data-en>Copy the message</span><span data-es>Copiar el mensaje</span><span data-de>Nachricht kopieren</span></button></div>
+          <p class="cf-note"><span data-fr>Ce formulaire prépare un e-mail dans la messagerie de l'appareil. Aucune donnée n'est transmise ni conservée par ce site.</span><span data-en>This form prepares an e-mail in the device's mail application. No data is transmitted or retained by this site.</span><span data-es>Este formulario prepara un correo en la aplicación de correo del dispositivo. Este sitio no transmite ni conserva ningún dato.</span><span data-de>Dieses Formular bereitet eine E-Mail im E-Mail-Programm des Geräts vor. Diese Website übermittelt und speichert keine Daten.</span></p>
+          <p class="cf-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -100,5 +112,6 @@
   </div>
 </footer>
 <script src="/assets/cl.js?v=20261116a"></script>
+<script src="/assets/contact.js?v=20261125" defer></script>
 </body>
 </html>
